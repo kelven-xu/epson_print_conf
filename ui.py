@@ -35,16 +35,16 @@ from find_printers import PrinterScanner
 VERSION = "5.1"
 
 NO_CONF_ERROR = (
-    "[ERROR] Please select a printer model and a valid IP address,"
-    " or press 'Detect Printers'.\n"
+    "[错误]请选择打印机型号和有效的IP地址,"
+    " 或按“检测打印机”'.\n"
 )
 
 CONFIRM_MESSAGE = (
-            "Confirm Action",
-            "Please copy and save the codes in the [NOTE] shown on the screen."
-            " They can be used to restore the initial configuration"
-            " in case of problems.\n\n"
-            "Are you sure you want to proceed?"
+            "确认操作",
+            "请复制并保存屏幕上显示的[注释]中的代码."
+            " 它们可用于恢复初始配置"
+            " 如果出现问题.\n\n"
+            "您确定要继续吗?"
 )
 
 
@@ -156,8 +156,8 @@ class ToolTip:
 
 class BugFixedDateEntry(DateEntry):
     """
-    Fixes a bug on the calendar that does not accept mouse selection with Linux
-    Fixes a drop down bug when the DateEntry widget is not focused
+    修复了日历上不接受Linux鼠标选择的错误
+    修复了日期输入小部件未聚焦时的下拉错误
     """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -178,7 +178,7 @@ class EpsonPrinterUI(tk.Tk):
         replace_conf=False
         ):
         super().__init__()
-        self.title("Epson Printer Configuration - v" + VERSION)
+        self.title("爱普生打印机配置 - v" + VERSION)
         self.geometry("500x500")
         self.minsize(550, 600)
         self.printer_scanner = PrinterScanner()
@@ -244,37 +244,37 @@ class EpsonPrinterUI(tk.Tk):
             )
         )
         file_menu.add_command(
-            label="Save the selected printer configuration to a PICKLE file...",
+            label="将所选打印机配置保存到PIC KLE文件...",
             command=self.save_to_file
         )
 
         # Create Help menu
         help_menu = tk.Menu(menubar, tearoff=0)
-        menubar.add_cascade(label="Settings", menu=help_menu)
+        menubar.add_cascade(label="设置", menu=help_menu)
 
-        help_menu.add_command(label="Show printer parameters of the selected model", command=self.printer_config)
-        help_menu.entryconfig("Show printer parameters of the selected model", accelerator="F2")
+        help_menu.add_command(label="显示所选型号的打印机参数", command=self.printer_config)
+        help_menu.entryconfig("显示所选型号的打印机参数", accelerator="F2")
 
-        help_menu.add_command(label="Show printer keys of the selected model", command=self.key_values)
-        help_menu.entryconfig("Show printer keys of the selected model", accelerator="F3")
+        help_menu.add_command(label="显示所选型号的打印机密钥", command=self.key_values)
+        help_menu.entryconfig("显示所选型号的打印机密钥", accelerator="F3")
 
-        help_menu.add_command(label="Remove selected printer configuration", command=self.remove_printer_conf)
-        help_menu.entryconfig("Remove selected printer configuration", accelerator="F4")
+        help_menu.add_command(label="删除所选打印机配置", command=self.remove_printer_conf)
+        help_menu.entryconfig("删除所选打印机配置", accelerator="F4")
 
-        help_menu.add_command(label="Keep only selected printer configuration", command=self.keep_printer_conf)
-        help_menu.entryconfig("Keep only selected printer configuration", accelerator="F5")
+        help_menu.add_command(label="仅保留选定的打印机配置", command=self.keep_printer_conf)
+        help_menu.entryconfig("仅保留选定的打印机配置", accelerator="F5")
 
-        help_menu.add_command(label="Clear printer list", command=self.clear_printer_list)
-        help_menu.entryconfig("Clear printer list", accelerator="F6")
+        help_menu.add_command(label="清除打印机列表", command=self.clear_printer_list)
+        help_menu.entryconfig("清除打印机列表", accelerator="F6")
 
-        help_menu.add_command(label="Get next local IP addresss", command=lambda: self.next_ip(0))
-        help_menu.entryconfig("Get next local IP addresss", accelerator="F9")
+        help_menu.add_command(label="获取下一个本地IP地址", command=lambda: self.next_ip(0))
+        help_menu.entryconfig("获取下一个本地IP地址", accelerator="F9")
 
         # Create Help menu
         help_menu = tk.Menu(menubar, tearoff=0)
-        menubar.add_cascade(label="Help", menu=help_menu)
-        help_menu.add_command(label="Help", command=self.open_help_browser)
-        help_menu.add_command(label="Program Information", command=self.show_program_info)
+        menubar.add_cascade(label="帮助", menu=help_menu)
+        help_menu.add_command(label="帮助", command=self.open_help_browser)
+        help_menu.add_command(label="项目信息", command=self.show_program_info)
 
         # Setup frames
         FRAME_PAD = 10
@@ -297,7 +297,7 @@ class EpsonPrinterUI(tk.Tk):
 
         # BOX printer model selection
         model_frame = ttk.LabelFrame(
-            model_ip_frame, text="Printer Model", padding=PAD
+            model_ip_frame, text="打印机型号", padding=PAD
         )
         model_frame.grid(
             row=0, column=0, pady=PADY, padx=(0, PADX), sticky=(tk.W, tk.E)
@@ -308,13 +308,13 @@ class EpsonPrinterUI(tk.Tk):
         # Model combobox
         self.model_var = tk.StringVar()
         if (
-            "internal_data" in conf_dict
-            and "default_model" in conf_dict["internal_data"]
+            "内部数据" in conf_dict
+            and "默认模型" in conf_dict["内部数据"]
         ):
-            self.model_var.set(conf_dict["internal_data"]["default_model"])
+            self.model_var.set(conf_dict["内部数据"]["默认模型"])
         if model:
             self.model_var.set(model)
-        ttk.Label(model_frame, text="Model:").grid(
+        ttk.Label(model_frame, text="型号:").grid(
             row=0, column=0, sticky=tk.W, padx=PADX
         )
         self.model_dropdown = ttk.Combobox(
@@ -329,8 +329,8 @@ class EpsonPrinterUI(tk.Tk):
         )
         ToolTip(
             self.model_dropdown,
-            "Select the model of the printer, or press 'Detect Printers'."
-            " Special features are allowed via F2, F3, F4, F5, or F6.\n"
+            "选择打印机型号，或按“检测打印机”'."
+            " 允许通过以下方式使用特殊功能 F2, F3, F4, F5, or F6.\n"
         )
         self.model_dropdown.bind("<F2>", self.printer_config)
         self.model_dropdown.bind("<F3>", self.key_values)
@@ -367,12 +367,12 @@ class EpsonPrinterUI(tk.Tk):
         self.ip_entry.bind("<F9>", self.next_ip)
         ToolTip(
             self.ip_entry,
-            "Enter the IP address, or press 'Detect Printers'"
-            " (you can also enter part of the IP address"
-            " to speed up the detection),"
-            " or press F9 more times to get the next local IP address,"
-            " which can then be edited"
-            " (by removing the last part before pressing 'Detect Printers').",
+            "输入IP地址，或按“检测打印机”'"
+            " （您也可以输入部分IP地址"
+            " 以加快检测速度）,"
+            " 或按F9多次以获取下一个本地IP地址,"
+            " 然后可以对其进行编辑"
+            " （在按下“检测打印机”之前删除最后一部分）.",
         )
 
         # Create a custom style for the button to center the text
@@ -559,7 +559,7 @@ class EpsonPrinterUI(tk.Tk):
 
         # BOX Serial number (10 characters)
         ser_num_frame = ttk.LabelFrame(
-            container_frame, text="Printer Serial Number", padding=PAD
+            container_frame, text="打印机序列号", padding=PAD
         )
         ser_num_frame.grid(
             row=0, column=1, pady=PADY, padx=(0, PADX), sticky=(tk.W, tk.E)
